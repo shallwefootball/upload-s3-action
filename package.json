@@ -1,0 +1,19 @@
+{
+  "name": "s3-static-action",
+  "description": "github action for deploy to static web in AWS S3",
+  "version": "0.0.2",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": "https://github.com/shallwefootball/s3-static-action",
+  "author": "Dong Keon Kim <amos@shallwefootball.com>",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "aws-sdk": "^2.641.0",
+    "klaw-sync": "^6.0.0",
+    "mime-types": "^2.1.26",
+    "shortid": "^2.2.15"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
+}

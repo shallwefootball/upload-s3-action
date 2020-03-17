@@ -1,0 +1,31 @@
+name: Deploy S3 Static Website
+description: 'deploy static to S3'
+author: "Dong Keon Kim"
+branding:
+  icon: 'upload-cloud'
+  color: 'orange'
+inputs:
+  aws-key-id:
+    description: 'aws key id'
+    required: true
+  aws-secret-access-key:
+    description: 'aws secret access key'
+    required: true
+  aws-bucket:
+    description: 'aws bucket name'
+    required: true
+  source-dir:
+    required: true
+    description: 'directory to upload'
+  s3-endpoint-url:
+    required: true
+    description: 's3 endpoint url'
+  index-document:
+    required: false
+    description: 'default index.html'
+outputs:
+  object-url:
+    description: 'object url'
+runs:
+  using: 'node12'
+  main: 'index.js'
