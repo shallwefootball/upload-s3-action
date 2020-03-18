@@ -12,9 +12,6 @@ const SECRET_ACCESS_KEY = core.getInput('aws_secret_access_key', {
 });
 const BUCKET = core.getInput('aws_bucket', { required: true });
 const SOURCE_DIR = core.getInput('source_dir', { required: true });
-const ENDPOINT_URL = core.getInput('s3_endpoint_url', { required: true });
-const INDEX =
-  core.getInput('index_document', { required: false }) || 'index.html';
 
 const s3 = new S3({
   accessKeyId: AWS_KEY_ID,
@@ -28,7 +25,8 @@ function upload(params) {
     s3.upload(params, (err, data) => {
       if (err) core.error(err);
       core.info(`uploaded - ${data.Key}`);
-      resolve();
+      core.info(`located - ${data.Location}`);
+      resolve(data.Location);
     });
   });
 }
@@ -50,10 +48,11 @@ function run() {
 }
 
 run()
-  .then(() => {
-    const url = path.join(ENDPOINT_URL, objKey, INDEX);
-    core.info(`object url - ${url}`);
-    core.setOutput('object_url', url);
+  .then(locations => {
+    core.info(`object key - ${objKey}`);
+    core.info(`object locations - ${locations}`);
+    core.setOutput('object_key', objKey);
+    core.setOutput('object_locations', locations);
   })
   .catch(err => {
     core.error(err);

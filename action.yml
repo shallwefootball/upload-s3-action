@@ -17,15 +17,11 @@ inputs:
   source_dir:
     required: true
     description: 'directory to upload'
-  s3_endpoint_url:
-    required: true
-    description: 's3 endpoint url'
-  index_document:
-    required: false
-    description: 'default index.html'
 outputs:
-  object_url:
-    description: 'object url'
+  object_key:
+    description: 'object key'
+  object_locations:
+    description: 'object locations'
 runs:
   using: 'node12'
   main: 'dist/index.js'
