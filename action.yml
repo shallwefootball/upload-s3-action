@@ -1,4 +1,4 @@
-name: Deploy S3 Static Website
+name: Deploy S3 Static Page
 description: 'deploy static to S3'
 author: "Dong Keon Kim"
 branding:
