@@ -2432,6 +2432,8 @@ function run() {
   return Promise.all(
     paths.map(p => {
       const Key = p.path.replace(SOURCE_DIR, objKey);
+      core.info(`path - ${p.path}`);
+      core.info(`source_dir', ${p.path}`);
       const fileStream = fs.createReadStream(p.path);
       const params = {
         Bucket: BUCKET,
@@ -2447,7 +2449,9 @@ function run() {
 
 run()
   .then(() => {
-    core.setOutput('object-url', path.join(ENDPOINT_URL, objKey, INDEX));
+    const url = path.join(ENDPOINT_URL, objKey, INDEX);
+    core.info(`object url - ${url}`);
+    core.setOutput('object-url', url);
   })
   .catch(err => {
     core.error(err);
