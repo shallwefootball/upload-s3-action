@@ -2402,15 +2402,15 @@ const shortid = __webpack_require__(354);
 const klawSync = __webpack_require__(502);
 const { lookup } = __webpack_require__(779);
 
-const AWS_KEY_ID = core.getInput('aws-key-id', { required: true });
-const SECRET_ACCESS_KEY = core.getInput('aws-secret-access-key', {
+const AWS_KEY_ID = core.getInput('aws_key_id', { required: true });
+const SECRET_ACCESS_KEY = core.getInput('aws_secret_access_key', {
   required: true
 });
-const BUCKET = core.getInput('aws-bucket', { required: true });
-const SOURCE_DIR = core.getInput('source-dir', { required: true });
-const ENDPOINT_URL = core.getInput('s3-endpoint-url', { required: true });
+const BUCKET = core.getInput('aws_bucket', { required: true });
+const SOURCE_DIR = core.getInput('source_dir', { required: true });
+const ENDPOINT_URL = core.getInput('s3_endpoint_url', { required: true });
 const INDEX =
-  core.getInput('index-document', { required: false }) || 'index.html';
+  core.getInput('index_document', { required: false }) || 'index.html';
 
 const s3 = new S3({
   accessKeyId: AWS_KEY_ID,
@@ -2432,9 +2432,6 @@ function run() {
   return Promise.all(
     paths.map(p => {
       const Key = p.path.replace(path.join(process.cwd(), SOURCE_DIR), objKey);
-      core.info(`process.cwd() - ${process.cwd()}`);
-      core.info(`path - ${p.path}`);
-      core.info(`source_dir', ${p.path}`);
       const fileStream = fs.createReadStream(p.path);
       const params = {
         Bucket: BUCKET,
@@ -2452,7 +2449,7 @@ run()
   .then(() => {
     const url = path.join(ENDPOINT_URL, objKey, INDEX);
     core.info(`object url - ${url}`);
-    core.setOutput('object-url', url);
+    core.setOutput('object_url', url);
   })
   .catch(err => {
     core.error(err);

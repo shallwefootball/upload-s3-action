@@ -5,26 +5,26 @@ branding:
   icon: 'upload-cloud'
   color: 'orange'
 inputs:
-  aws-key-id:
+  aws_key_id:
     description: 'aws key id'
     required: true
-  aws-secret-access-key:
+  aws_secret_access-key:
     description: 'aws secret access key'
     required: true
-  aws-bucket:
+  aws_bucket:
     description: 'aws bucket name'
     required: true
-  source-dir:
+  source_dir:
     required: true
     description: 'directory to upload'
-  s3-endpoint-url:
+  s3_endpoint_url:
     required: true
     description: 's3 endpoint url'
-  index-document:
+  index_document:
     required: false
     description: 'default index.html'
 outputs:
-  object-url:
+  object_url:
     description: 'object url'
 runs:
   using: 'node12'
