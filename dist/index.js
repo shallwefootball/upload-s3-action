@@ -2431,7 +2431,8 @@ function upload(params) {
 function run() {
   return Promise.all(
     paths.map(p => {
-      const Key = p.path.replace(SOURCE_DIR, objKey);
+      const Key = p.path.replace(path.join(process.cwd(), SOURCE_DIR), objKey);
+      core.info(`process.cwd() - ${process.cwd()}`);
       core.info(`path - ${p.path}`);
       core.info(`source_dir', ${p.path}`);
       const fileStream = fs.createReadStream(p.path);
