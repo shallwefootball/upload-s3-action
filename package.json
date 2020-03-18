@@ -6,6 +6,9 @@
   "license": "MIT",
   "repository": "https://github.com/shallwefootball/s3-static-action",
   "author": "Dong Keon Kim <amos@shallwefootball.com>",
+  "scripts": {
+    "package": "ncc build index.js -o dist"
+  },
   "dependencies": {
     "@actions/core": "^1.2.3",
     "aws-sdk": "^2.641.0",
@@ -14,6 +17,7 @@
     "shortid": "^2.2.15"
   },
   "devDependencies": {
+    "@zeit/ncc": "^0.21.1",
     "prettier": "^1.19.1"
   }
 }
