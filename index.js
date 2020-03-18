@@ -51,7 +51,7 @@ function run() {
 
 run()
   .then(() => {
-    core.setOutput('object-url', path.join(ENDPOINT_URL, objKey, BUCKET));
+    core.setOutput('object-url', path.join(ENDPOINT_URL, objKey, INDEX));
   })
   .catch(err => {
     core.error(err);
