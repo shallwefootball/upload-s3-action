@@ -1,7 +1,7 @@
 {
   "name": "s3-static-action",
   "description": "github action for deploy to static web in AWS S3",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "license": "MIT",
   "repository": "https://github.com/shallwefootball/s3-static-action",
