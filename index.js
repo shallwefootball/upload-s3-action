@@ -6,19 +6,27 @@ const shortid = require('shortid');
 const klawSync = require('klaw-sync');
 const { lookup } = require('mime-types');
 
-const AWS_KEY_ID = core.getInput('aws_key_id', { required: true });
+const AWS_KEY_ID = core.getInput('aws_key_id', {
+  required: true
+});
 const SECRET_ACCESS_KEY = core.getInput('aws_secret_access_key', {
   required: true
 });
-const BUCKET = core.getInput('aws_bucket', { required: true });
-const SOURCE_DIR = core.getInput('source_dir', { required: true });
+const BUCKET = core.getInput('aws_bucket', {
+  required: true
+});
+const SOURCE_DIR = core.getInput('source_dir', {
+  required: true
+});
 
 const s3 = new S3({
   accessKeyId: AWS_KEY_ID,
   secretAccessKey: SECRET_ACCESS_KEY
 });
 const objKey = shortid();
-const paths = klawSync(SOURCE_DIR, { nodir: true });
+const paths = klawSync(SOURCE_DIR, {
+  nodir: true
+});
 
 function upload(params) {
   return new Promise(resolve => {
