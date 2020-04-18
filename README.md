@@ -31,7 +31,7 @@ Recommend using with [deployment-action](https://github.com/marketplace/actions/
 ```yaml
 name: Deploy for preview
 
-on: [pull_reqeust]
+on: [pull_request]
 
 jobs:
   preview:
