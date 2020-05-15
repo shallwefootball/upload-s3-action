@@ -8,7 +8,7 @@ inputs:
   aws_key_id:
     description: 'aws key id'
     required: true
-  aws_secret_access-key:
+  aws_secret_access_key:
     description: 'aws secret access key'
     required: true
   aws_bucket:
