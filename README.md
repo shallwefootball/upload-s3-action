@@ -69,12 +69,15 @@ jobs:
 
 The following settings must be passed as environment variables as shown in the example. Sensitive information, especially `aws_key_id` and `aws_secret_access_key`, should be [set as encrypted secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) — otherwise, they'll be public to anyone browsing your repository's source code
 
-| name                    | description                                                                                                                           |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `aws_key_id`            | (Required) Your AWS Access Key. [More info here.](https://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html)        |
+| name                    | description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| `aws_key_id`            | (Required) Your AWS Access Key. [More info here.](https://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html) |
 | `aws_secret_access_key` | (Required) Your AWS Secret Access Key. [More info here.](https://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html) |
-| `aws_bucket`            | (Required) The name of the bucket you're upload to.                                                                                   |
-| `source_dir`            | (Required) The local directory (or file) you wish to upload to S3.                                                                    |
+| `aws_bucket`            | (Required) The name of the bucket you're upload to.          |
+| `source_dir`            | (Required) The local directory (or file) you wish to upload to S3. |
+| `destination_dir`       | (Optional) The destination directory in S3<br />If this field is excluded a [shortid](https://github.com/dylang/shortid) will be generated |
+
+> To upload to the root directory, set `destination_dir` to ""
 
 ## Action outputs
 

@@ -17,6 +17,9 @@ inputs:
   source_dir:
     required: true
     description: 'directory to upload'
+  destination_dir:
+    required: false
+    description: 'destination directory for upload'
 outputs:
   object_key:
     description: 'object key'
