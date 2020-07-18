@@ -19,5 +19,8 @@
   "devDependencies": {
     "@zeit/ncc": "^0.21.1",
     "prettier": "^1.19.1"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }
