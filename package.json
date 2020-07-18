@@ -1,7 +1,7 @@
 {
   "name": "upload-s3-action",
   "description": "Upload directory to AWS S3",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "license": "MIT",
   "repository": "https://github.com/shallwefootball/upload-s3-action",
