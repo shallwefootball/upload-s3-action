@@ -20,13 +20,13 @@ const SOURCE_DIR = core.getInput('source_dir', {
 });
 const DESTINATION_DIR = core.getInput('destination_dir', {
   required: false
-})
+});
 
 const s3 = new S3({
   accessKeyId: AWS_KEY_ID,
   secretAccessKey: SECRET_ACCESS_KEY
 });
-const objKey = DESTINATION_DIR !== undefined ? DESTINATION_DIR : `${shortid()}/`;
+const objKey = DESTINATION_DIR === '/' ? `${shortid()}/` : DESTINATION_DIR;
 const paths = klawSync(SOURCE_DIR, {
   nodir: true
 });
@@ -44,7 +44,7 @@ function upload(params) {
 function run() {
   return Promise.all(
     paths.map(p => {
-      const Key = p.path.replace(path.join(process.cwd(), SOURCE_DIR, '/'), objKey);
+      const Key = p.path.replace(path.join(process.cwd(), SOURCE_DIR), objKey);
       const fileStream = fs.createReadStream(p.path);
       const params = {
         Bucket: BUCKET,

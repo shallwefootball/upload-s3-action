@@ -77,7 +77,7 @@ The following settings must be passed as environment variables as shown in the e
 | `source_dir`            | (Required) The local directory (or file) you wish to upload to S3. |
 | `destination_dir`       | (Optional) The destination directory in S3<br />If this field is excluded a [shortid](https://github.com/dylang/shortid) will be generated |
 
-> To upload to the root directory, set `destination_dir` to ""
+> To upload to the root directory, set `destination_dir: ''` in `action.yml`
 
 ## Action outputs
 
