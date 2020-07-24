@@ -1,4 +1,4 @@
-name: Upload S3
+name: Upload S3 - Fix GH-12
 description: 'Upload directory to S3'
 author: 'Dong Keon Kim'
 branding:
