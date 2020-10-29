@@ -21,10 +21,14 @@ const SOURCE_DIR = core.getInput('source_dir', {
 const DESTINATION_DIR = core.getInput('destination_dir', {
   required: false
 });
+const ENDPOINT = core.getInput('endpoint', {
+  required: false
+});
 
 const s3 = new S3({
   accessKeyId: AWS_KEY_ID,
-  secretAccessKey: SECRET_ACCESS_KEY
+  secretAccessKey: SECRET_ACCESS_KEY,
+  endpoint: ENDPOINT,
 });
 const destinationDir = DESTINATION_DIR === '/' ? shortid() : DESTINATION_DIR;
 const paths = klawSync(SOURCE_DIR, {

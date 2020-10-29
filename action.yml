@@ -14,6 +14,9 @@ inputs:
   aws_bucket:
     description: 'aws bucket name'
     required: true
+  endpoint:
+    description: 'endpoint'
+    required: false
   source_dir:
     required: true
     description: 'directory to upload'
