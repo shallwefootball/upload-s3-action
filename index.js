@@ -52,6 +52,9 @@ function run() {
     paths.map(p => {
       const fileStream = fs.createReadStream(p.path);
       const bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      console.log('bucketKey', bucketPath);
+      console.log(destinationDir);
+      console.log(path.relative(sourceDir, p.path));
       const params = {
         Bucket: BUCKET,
         ACL: 'public-read',
