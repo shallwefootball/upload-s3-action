@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const shortid = require('shortid');
 const klawSync = require('klaw-sync');
+const slash = require('slash');
 const { lookup } = require('mime-types');
 
 const AWS_KEY_ID = core.getInput('aws_key_id', {
@@ -43,11 +44,11 @@ function upload(params) {
 }
 
 function run() {
-  const sourceDir = path.join(process.cwd(), SOURCE_DIR);
+  const sourceDir = slash(path.join(process.cwd(), SOURCE_DIR));
   return Promise.all(
     paths.map(p => {
       const fileStream = fs.createReadStream(p.path);
-      const bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      const bucketPath = slash(path.join(destinationDir, slash(path.relative(sourceDir, p.path))));
       const params = {
         Bucket: BUCKET,
         ACL: 'public-read',
