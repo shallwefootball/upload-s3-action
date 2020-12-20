@@ -1,6 +1,6 @@
 name: Upload S3
 description: 'Upload directory to S3'
-author: 'Anshul Goyal'
+author: 'Dong Keon Kim'
 branding:
   icon: 'upload-cloud'
   color: 'orange'
