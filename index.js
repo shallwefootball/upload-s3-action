@@ -15,6 +15,11 @@ const SECRET_ACCESS_KEY = core.getInput('aws_secret_access_key', {
 const BUCKET = core.getInput('aws_bucket', {
   required: true
 });
+
+const REGION = core.getInput('aws_region', {
+  required: true
+});
+
 const SOURCE_DIR = core.getInput('source_dir', {
   required: true
 });
@@ -23,6 +28,7 @@ const DESTINATION_DIR = core.getInput('destination_dir', {
 });
 
 const s3 = new S3({
+  region: REGION,
   accessKeyId: AWS_KEY_ID,
   secretAccessKey: SECRET_ACCESS_KEY
 });
@@ -47,7 +53,10 @@ function run() {
   return Promise.all(
     paths.map(p => {
       const fileStream = fs.createReadStream(p.path);
-      const bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      const bucketPath = path.join(
+        destinationDir,
+        path.relative(sourceDir, p.path)
+      );
       const params = {
         Bucket: BUCKET,
         ACL: 'public-read',
