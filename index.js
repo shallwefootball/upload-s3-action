@@ -47,12 +47,16 @@ function run() {
   return Promise.all(
     paths.map(p => {
       const fileStream = fs.createReadStream(p.path);
-      const bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      const filePath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      
+      // make file path to s3 key using posix seperator
+      const key = filePath.split(path.sep).join(path.posix.sep);
+
       const params = {
         Bucket: BUCKET,
         ACL: 'public-read',
         Body: fileStream,
-        Key: bucketPath,
+        Key: key,
         ContentType: lookup(p.path) || 'text/plain'
       };
       return upload(params);
