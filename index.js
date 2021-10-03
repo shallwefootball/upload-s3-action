@@ -21,6 +21,11 @@ const SOURCE_DIR = core.getInput('source_dir', {
 const DESTINATION_DIR = core.getInput('destination_dir', {
   required: false
 });
+const EXTRA_PARAMS = core.getInput('extra_params', {
+  required: false,
+}) || '{}';
+
+const extraParms = tryParseJson(EXTRA_PARAMS);
 
 const s3 = new S3({
   accessKeyId: AWS_KEY_ID,
@@ -30,6 +35,15 @@ const destinationDir = DESTINATION_DIR === '/' ? shortid() : DESTINATION_DIR;
 const paths = klawSync(SOURCE_DIR, {
   nodir: true
 });
+
+function tryParseJson(json) {
+  try {
+    return JSON.parse(json);
+  } catch (err) {
+    console.warn("Could not parse extra params!");
+    return {};
+  }
+}
 
 function upload(params) {
   return new Promise(resolve => {
@@ -49,11 +63,12 @@ function run() {
       const fileStream = fs.createReadStream(p.path);
       const bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
       const params = {
-        Bucket: BUCKET,
+        ContentType: lookup(p.path) || 'text/plain',
         ACL: 'public-read',
+        ...extraParms,
+        Bucket: BUCKET,
         Body: fileStream,
         Key: bucketPath,
-        ContentType: lookup(p.path) || 'text/plain'
       };
       return upload(params);
     })
