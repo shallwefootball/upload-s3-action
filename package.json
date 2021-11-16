@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "aws-sdk": "^2.641.0",
+    "aws-sdk": "^2.814.0",
     "klaw-sync": "^6.0.0",
     "mime-types": "^2.1.26",
     "shortid": "^2.2.15"
