@@ -27,9 +27,16 @@ const s3 = new S3({
   secretAccessKey: SECRET_ACCESS_KEY
 });
 const destinationDir = DESTINATION_DIR === '/' ? shortid() : DESTINATION_DIR;
-const paths = klawSync(SOURCE_DIR, {
-  nodir: true
-});
+
+if(!fs.existsSync(SOURCE_DIR)) {
+  core.error(`SOURCE_DIR: ${SOURCE_DIR} does not exist.`);
+}
+
+
+filemeta = fs.lstatSync(SOURCE_DIR);
+const paths = filemeta.isDirectory() ?  
+  klawSync(SOURCE_DIR, { nodir: true }) :
+  [{path: SOURCE_DIR, stats: filemeta}];
 
 function upload(params) {
   return new Promise(resolve => {
