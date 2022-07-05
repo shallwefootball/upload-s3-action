@@ -21,6 +21,9 @@ inputs:
     required: false
     default: /
     description: 'destination directory for upload'
+  destination_dir:
+    required: false    
+    description: 'endpoint of the s3 instance'
 outputs:
   object_key:
     description: 'object key'
