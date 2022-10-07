@@ -21,6 +21,10 @@ inputs:
     required: false
     default: /
     description: 'destination directory for upload'
+  file_metadata:
+    required: false
+    default: ''
+    description: 'file's metadata'
 outputs:
   object_key:
     description: 'object key'
