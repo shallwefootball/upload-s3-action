@@ -21,6 +21,9 @@ const SOURCE_DIR = core.getInput('source_dir', {
 const DESTINATION_DIR = core.getInput('destination_dir', {
   required: false
 });
+const METADATA = core.getInput('file_metadata', {
+  required: false
+});
 
 const s3 = new S3({
   accessKeyId: AWS_KEY_ID,
@@ -53,7 +56,7 @@ function run() {
         ACL: 'public-read',
         Body: fileStream,
         Key: bucketPath,
-        ContentType: lookup(p.path) || 'text/plain'
+        ContentType: METADATA === '' ? lookup(p.path) : METADATA
       };
       return upload(params);
     })
