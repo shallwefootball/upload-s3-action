@@ -21,7 +21,7 @@ inputs:
     required: false
     default: /
     description: 'destination directory for upload'
-  destination_dir:
+  endpoint:
     required: false    
     description: 'endpoint of the s3 instance'
 outputs:
