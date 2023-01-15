@@ -17,6 +17,9 @@ inputs:
   source_dir:
     required: true
     description: 'directory to upload'
+  endpoint:
+    description: 'endpoint. only applicable for digitalocean spaces. e.g.: sgp1.digitaloceanspaces.com'
+    required: false
   destination_dir:
     required: false
     default: /
