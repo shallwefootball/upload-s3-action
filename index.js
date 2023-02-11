@@ -41,9 +41,11 @@ const paths = klawSync(SOURCE_DIR, {
 });
 
 function upload(params) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     s3.upload(params, (err, data) => {
-      if (err) core.error(err);
+      if (err) {
+        reject(err);
+      }
       core.info(`uploaded - ${data.Key}`);
       core.info(`located - ${data.Location}`);
       resolve(data.Location);
