@@ -28662,6 +28662,14 @@ module.exports = require("path");
 
 /***/ }),
 
+/***/ 7282:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("process");
+
+/***/ }),
+
 /***/ 3477:
 /***/ ((module) => {
 
@@ -28846,6 +28854,7 @@ const path = __nccwpck_require__(1017);
 const shortid = __nccwpck_require__(794);
 const klawSync = __nccwpck_require__(9036);
 const { lookup } = __nccwpck_require__(3583);
+const { platform } = __nccwpck_require__(7282);
 
 const AWS_KEY_ID = core.getInput('aws_key_id', {
   required: true
@@ -28897,7 +28906,10 @@ function run() {
   return Promise.all(
     paths.map(p => {
       const fileStream = fs.createReadStream(p.path);
-      const bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      let bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      if (process.platform === 'win32') {
+        bucketPath = bucketPath.replace("\\", "\/")
+      }
       const params = {
         Bucket: BUCKET,
         ACL: 'public-read',

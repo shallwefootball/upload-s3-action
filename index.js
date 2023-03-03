@@ -5,6 +5,7 @@ const path = require('path');
 const shortid = require('shortid');
 const klawSync = require('klaw-sync');
 const { lookup } = require('mime-types');
+const { platform } = require('process');
 
 const AWS_KEY_ID = core.getInput('aws_key_id', {
   required: true
@@ -56,7 +57,10 @@ function run() {
   return Promise.all(
     paths.map(p => {
       const fileStream = fs.createReadStream(p.path);
-      const bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      let bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      if (process.platform === 'win32') {
+        bucketPath = bucketPath.replace("\\", "\/")
+      }
       const params = {
         Bucket: BUCKET,
         ACL: 'public-read',
