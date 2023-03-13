@@ -28718,6 +28718,27 @@ module.exports = require("util");
 
 /***/ }),
 
+/***/ 3433:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+__nccwpck_require__.r(__webpack_exports__);
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ slash)
+/* harmony export */ });
+function slash(path) {
+	const isExtendedLengthPath = /^\\\\\?\\/.test(path);
+
+	if (isExtendedLengthPath) {
+		return path;
+	}
+
+	return path.replace(/\\/g, '/');
+}
+
+
+/***/ }),
+
 /***/ 7377:
 /***/ ((module) => {
 
@@ -28831,6 +28852,34 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
@@ -28844,45 +28893,46 @@ const S3 = __nccwpck_require__(3256);
 const fs = __nccwpck_require__(7147);
 const path = __nccwpck_require__(1017);
 const shortid = __nccwpck_require__(794);
+const slash = __nccwpck_require__(3433);
 const klawSync = __nccwpck_require__(9036);
 const { lookup } = __nccwpck_require__(3583);
 
 const AWS_KEY_ID = core.getInput('aws_key_id', {
-  required: true
+  required: true,
 });
 const SECRET_ACCESS_KEY = core.getInput('aws_secret_access_key', {
-  required: true
+  required: true,
 });
 const BUCKET = core.getInput('aws_bucket', {
-  required: true
+  required: true,
 });
 const SOURCE_DIR = core.getInput('source_dir', {
-  required: true
+  required: true,
 });
 const DESTINATION_DIR = core.getInput('destination_dir', {
-  required: false
+  required: false,
 });
 const ENDPOINT = core.getInput('endpoint', {
-  required: false
+  required: false,
 });
 
 const s3options = {
   accessKeyId: AWS_KEY_ID,
-  secretAccessKey: SECRET_ACCESS_KEY
-}
+  secretAccessKey: SECRET_ACCESS_KEY,
+};
 
 if (ENDPOINT) {
-  s3options.endpoint = ENDPOINT
+  s3options.endpoint = ENDPOINT;
 }
 
 const s3 = new S3(s3options);
 const destinationDir = DESTINATION_DIR === '/' ? shortid() : DESTINATION_DIR;
 const paths = klawSync(SOURCE_DIR, {
-  nodir: true
+  nodir: true,
 });
 
 function upload(params) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     s3.upload(params, (err, data) => {
       if (err) core.error(err);
       core.info(`uploaded - ${data.Key}`);
@@ -28893,17 +28943,19 @@ function upload(params) {
 }
 
 function run() {
-  const sourceDir = path.join(process.cwd(), SOURCE_DIR);
+  const sourceDir = slash(path.join(process.cwd(), SOURCE_DIR));
   return Promise.all(
-    paths.map(p => {
+    paths.map((p) => {
       const fileStream = fs.createReadStream(p.path);
-      const bucketPath = path.join(destinationDir, path.relative(sourceDir, p.path));
+      const bucketPath = slash(
+        path.join(destinationDir, slash(path.relative(sourceDir, p.path)))
+      );
       const params = {
         Bucket: BUCKET,
         ACL: 'public-read',
         Body: fileStream,
         Key: bucketPath,
-        ContentType: lookup(p.path) || 'text/plain'
+        ContentType: lookup(p.path) || 'text/plain',
       };
       return upload(params);
     })
@@ -28911,13 +28963,13 @@ function run() {
 }
 
 run()
-  .then(locations => {
+  .then((locations) => {
     core.info(`object key - ${destinationDir}`);
     core.info(`object locations - ${locations}`);
     core.setOutput('object_key', destinationDir);
     core.setOutput('object_locations', locations);
   })
-  .catch(err => {
+  .catch((err) => {
     core.error(err);
     core.setFailed(err.message);
   });
