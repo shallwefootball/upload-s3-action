@@ -14,7 +14,8 @@
     "aws-sdk": "^2.1242.0",
     "klaw-sync": "^6.0.0",
     "mime-types": "^2.1.35",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "slash": "^5.0.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.34.0",

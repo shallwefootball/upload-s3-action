@@ -435,6 +435,11 @@ side-channel@^1.0.4:
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
 
+slash@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/slash/-/slash-5.0.0.tgz#8c18a871096b71ee0e002976a4fe3374991c3074"
+  integrity sha512-n6KkmvKS0623igEVj3FF0OZs1gYYJ0o0Hj939yc1fyxl2xt+xYpLnzJB6xBSqOfV9ZFLEWodBBN/heZJahuIJQ==
+
 string.prototype.trimend@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/string.prototype.trimend/-/string.prototype.trimend-1.0.5.tgz#914a65baaab25fbdd4ee291ca7dde57e869cb8d0"
