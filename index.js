@@ -1,11 +1,11 @@
-const core = require('@actions/core');
-const S3 = require('aws-sdk/clients/s3');
-const fs = require('fs');
-const path = require('path');
-const shortid = require('shortid');
-const slash = require('slash');
-const klawSync = require('klaw-sync');
-const { lookup } = require('mime-types');
+import slash from 'slash';
+import core from '@actions/core';
+import S3 from 'aws-sdk/clients/s3.js';
+import fs from 'fs';
+import path from 'path';
+import shortid from 'shortid';
+import klawSync from 'klaw-sync';
+import { lookup } from 'mime-types';
 
 const AWS_KEY_ID = core.getInput('aws_key_id', {
   required: true,
