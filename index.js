@@ -1,9 +1,9 @@
-import slash from 'slash';
 import core from '@actions/core';
 import S3 from 'aws-sdk/clients/s3.js';
 import fs from 'fs';
 import path from 'path';
 import shortid from 'shortid';
+import slash from 'slash';
 import klawSync from 'klaw-sync';
 import { lookup } from 'mime-types';
 
