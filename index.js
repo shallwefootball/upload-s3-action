@@ -3,7 +3,7 @@ const S3 = require('aws-sdk/clients/s3');
 const fs = require('fs');
 const path = require('path');
 const shortid = require('shortid');
-const slash = require('slash');
+const slash = require('slash').default;
 const klawSync = require('klaw-sync');
 const { lookup } = require('mime-types');
 
