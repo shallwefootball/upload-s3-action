@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const S3 = require('aws-sdk/clients/s3');
 const fs = require('fs');
 const path = require('path');
-const shortid = require('shortid');
+const nanoid = require('nanoid');
 const slash = require('slash').default;
 const klawSync = require('klaw-sync');
 const { lookup } = require('mime-types');
@@ -36,7 +36,7 @@ if (ENDPOINT) {
 }
 
 const s3 = new S3(s3options);
-const destinationDir = DESTINATION_DIR === '/' ? shortid() : DESTINATION_DIR;
+const destinationDir = DESTINATION_DIR === '/' ? nanoid.customRandom(nanoid.urlAlphabet, 10, nanoid.random) : DESTINATION_DIR;
 const paths = klawSync(SOURCE_DIR, {
   nodir: true,
 });
