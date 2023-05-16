@@ -24,6 +24,10 @@ inputs:
   endpoint:
     required: false
     description: 'endpoint URI to send requests'
+  acl:
+    required: false
+    description: 'access control list to apply to uploaded objects'
+    default: "public-read"
 outputs:
   object_key:
     description: 'object key'
