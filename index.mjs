@@ -2,10 +2,9 @@ import core from "@actions/core"
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
 import fs from "fs"
 import path from "path"
-const shortid = require("shortid")
-const slash = require("slash").default
-const klawSync = require("klaw-sync")
-const { lookup } = require("mime-types")
+import slash from "slash"
+import klawSync from "klaw-sync"
+import { lookup } from "mime-types"
 
 // Inputs
 const ACCOUNT_ID = core.getInput("account_id", {
@@ -35,7 +34,6 @@ const client = new S3Client({
   region: "auto",
   endpoint: `https://${ACCOUNT_ID}.r2.cloudflarestorage.com`
 })
-const destinationDir = DESTINATION_DIR === "/" ? shortid() : DESTINATION_DIR
 const paths = klawSync(SOURCE_DIR, {
   nodir: true,
 })
@@ -43,12 +41,11 @@ const paths = klawSync(SOURCE_DIR, {
 function upload(input) {
   return new Promise((resolve) => {
     client.send(new PutObjectCommand(input))
-    s3.upload(params, (err, data) => {
-      if (err) core.error(err)
-      core.info(`uploaded - ${data.Key}`)
-      core.info(`located - ${data.Location}`)
-      resolve(data.Location)
-    })
+      .then(() => {
+        core.info(`uploaded - ${input.Key}`)
+        resolve(input.Key)
+      })
+      .catch(err => core.error(err))
   })
 }
 
@@ -58,11 +55,10 @@ function run() {
     paths.map((p) => {
       const fileStream = fs.createReadStream(p.path)
       const bucketPath = slash(
-        path.join(destinationDir, slash(path.relative(sourceDir, p.path)))
+        path.join(DESTINATION_DIR, slash(path.relative(sourceDir, p.path)))
       )
       const input = {
-        Bucket: BUCKET,
-        ACL: "public-read",
+        Bucket: R2_BUCKET,
         Body: fileStream,
         Key: bucketPath,
         ContentType: lookup(p.path) || "text/plain",
@@ -74,7 +70,7 @@ function run() {
 
 run()
   .then((locations) => {
-    core.info(`object key - ${destinationDir}`)
+    core.info(`object key - ${DESTINATION_DIR}`)
     core.info(`object locations - ${locations}`)
   })
   .catch((err) => {
