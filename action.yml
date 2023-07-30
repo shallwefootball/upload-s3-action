@@ -1,34 +1,29 @@
-name: Upload S3
-description: 'Upload directory to S3'
-author: 'Dong Keon Kim'
+name: Cloudflare R2 Upload
+description: Upload directory to Cloudflare R2
+author: Okkema Labs <correos@okkema.org>
 branding:
-  icon: 'upload-cloud'
-  color: 'orange'
+  icon: upload-cloud
+  color: orange
 inputs:
-  aws_key_id:
-    description: 'aws key id'
+  account_id:
+    description: Cloudflare account id
     required: true
-  aws_secret_access_key:
-    description: 'aws secret access key'
+  r2_access_key:
+    description: Cloudflare R2 access key
     required: true
-  aws_bucket:
-    description: 'aws bucket name'
+  r2_secret_key:
+    description: Cloudflare R2 secret key
+    required: true
+  r2_bucket:
+    description: Cloudflare R2 bucket name
     required: true
   source_dir:
     required: true
-    description: 'directory to upload'
+    description: Source directory to upload
   destination_dir:
     required: false
     default: /
-    description: 'destination directory for upload'
-  endpoint:
-    required: false
-    description: 'endpoint URI to send requests'
-outputs:
-  object_key:
-    description: 'object key'
-  object_locations:
-    description: 'object locations'
+    description: Destination directory for upload
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: node16
+  main: dist/index.js

@@ -1,16 +1,17 @@
 {
-  "name": "upload-s3-action",
-  "description": "Upload directory to AWS S3",
-  "version": "1.3.3",
+  "name": "cloudflare-r2-upload",
+  "description": "Upload directory to Cloudflare R2",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
-  "repository": "https://github.com/shallwefootball/upload-s3-action",
-  "author": "Dong Keon Kim <amos@shallwefootball.com>",
+  "repository": "https://github.com/okkema/github-action-r2",
+  "author": "Okkema Labs <correos@okkema.org>",
   "scripts": {
-    "package": "ncc build index.js -o dist"
+    "package": "esbuild index.js --bundle --outdir=dist --platform=node --format=cjs"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
+    "@aws-sdk/client-s3": "^3.379.1",
     "aws-sdk": "^2.1242.0",
     "klaw-sync": "^6.0.0",
     "mime-types": "^2.1.35",
@@ -18,10 +19,6 @@
     "slash": "^5.0.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.34.0",
-    "prettier": "^2.7.1"
-  },
-  "prettier": {
-    "singleQuote": true
+    "esbuild": "^0.18.17"
   }
 }
