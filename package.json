@@ -14,7 +14,7 @@
     "aws-sdk": "^2.1242.0",
     "klaw-sync": "^6.0.0",
     "mime-types": "^2.1.35",
-    "shortid": "^2.2.16",
+    "nanoid": "^3.3.4",
     "slash": "^5.0.0"
   },
   "devDependencies": {
