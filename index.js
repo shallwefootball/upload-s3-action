@@ -25,10 +25,14 @@ const DESTINATION_DIR = core.getInput('destination_dir', {
 const ENDPOINT = core.getInput('endpoint', {
   required: false,
 });
+const FORCE_PATH_STYLE = core.getBooleanInput('force_path_style', {
+  required: false
+});
 
 const s3options = {
   accessKeyId: AWS_KEY_ID,
   secretAccessKey: SECRET_ACCESS_KEY,
+  s3ForcePathStyle: FORCE_PATH_STYLE,
 };
 
 if (ENDPOINT) {
